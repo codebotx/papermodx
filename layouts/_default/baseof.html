@@ -13,7 +13,9 @@
     {{- partialCached "header.html" . .Page -}}
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
         {{- block "main" . }}{{ end }}
+        {{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
         {{ partial "giscus.html" . -}}
+        {{- end }}
         {{ partial "footer.html" . -}}
         {{- block "body_end" . }}{{ end }}
     </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.LanguageDirection | default " auto" }}">
 
 <head>
     {{- partial "head.html" . }}
@@ -8,18 +8,15 @@
 
 <body class="
 {{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
-{{- print "list-page" -}}
-{{- end -}}
-{{- if eq site.Params.defaultTheme `dark` -}}
-{{- print " dark" }}
-{{- end }} type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}}
-" id="top">
+{{- print " list-page" -}} {{- end -}} {{- if eq site.Params.defaultTheme `dark` -}} {{- print " dark" }} {{- end }}
+    type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}} " id=" top">
     {{- partialCached "header.html" . .Page -}}
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
         {{- block "main" . }}{{ end }}
+        {{ partial "giscus.html" . -}}
+        {{ partial "footer.html" . -}}
+        {{- block "body_end" . }}{{ end }}
     </main>
-    {{ partial "footer.html" . -}}
-    {{- block "body_end" . }}{{ end }}
 </body>
 
 </html>
